@@ -18,8 +18,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       baseTheme: shadesOfPurple,
     }}
     publishableKey={PUBLISHABLE_KEY}
-    // afterSignOutUrl="/"
-  >
+    afterSignOutUrl="/">
     {" "}
     <React.StrictMode>
       <App />
