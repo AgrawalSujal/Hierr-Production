@@ -21,9 +21,8 @@
 // };
 
 // export default ProtectedRoute;
-/* eslint-disable react/prop-types */
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
 
 const ProtectedRoute = ({ children }) => {
@@ -31,26 +30,23 @@ const ProtectedRoute = ({ children }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Remove ?sign-in=true after successful login
   useEffect(() => {
     const params = new URLSearchParams(location.search);
-
     if (isLoaded && isSignedIn && params.has("sign-in")) {
-      // Clean the query param
-      navigate(location.pathname, { replace: true });
+      params.delete("sign-in");
+      navigate(`${location.pathname}?${params.toString()}`, { replace: true });
     }
   }, [isLoaded, isSignedIn, location, navigate]);
 
-  // If not signed in, redirect to login route
-  if (isLoaded && !isSignedIn && isSignedIn !== undefined) {
+  if (isLoaded && !isSignedIn) {
     return <Navigate to="/?sign-in=true" replace />;
   }
 
-  // If user has no role but is signed in, redirect to onboarding
   if (
+    isLoaded &&
     isSignedIn &&
-    user !== undefined &&
-    !user?.unsafeMetadata?.role &&
+    user &&
+    !user.unsafeMetadata?.role &&
     location.pathname !== "/onboarding"
   ) {
     return <Navigate to="/onboarding" replace />;
