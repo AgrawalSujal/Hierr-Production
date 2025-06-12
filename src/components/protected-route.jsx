@@ -21,37 +21,36 @@
 // };
 
 // export default ProtectedRoute;
-import { useEffect } from "react";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+
+// /* eslint-disable react/prop-types */
+import { Navigate, useLocation } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
 
 const ProtectedRoute = ({ children }) => {
   const { isSignedIn, isLoaded, user } = useUser();
-  const location = useLocation();
-  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
-  useEffect(() => {
-    const params = new URLSearchParams(location.search);
-    if (isLoaded && isSignedIn && params.has("sign-in")) {
-      params.delete("sign-in");
-      navigate(`${location.pathname}?${params.toString()}`, { replace: true });
-    }
-  }, [isLoaded, isSignedIn, location, navigate]);
-
-  if (isLoaded && !isSignedIn) {
-    return <Navigate to="/?sign-in=true" replace />;
+  // ✅ Wait until Clerk is fully loaded
+  if (!isLoaded) {
+    return null; // or a loader
   }
 
+  // 🔒 If not signed in, redirect to sign-in page
+  if (!isSignedIn) {
+    return <Navigate to="/?sign-in=true" />;
+  }
+
+  // 🧭 If signed in but role not set, redirect to onboarding
   if (
-    isLoaded &&
     isSignedIn &&
     user &&
-    !user.unsafeMetadata?.role &&
-    location.pathname !== "/onboarding"
+    !user?.unsafeMetadata?.role &&
+    pathname !== "/onboarding"
   ) {
-    return <Navigate to="/onboarding" replace />;
+    return <Navigate to="/onboarding" />;
   }
 
+  // ✅ All checks passed
   return children;
 };
 
