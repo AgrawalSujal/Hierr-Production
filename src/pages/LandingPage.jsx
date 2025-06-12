@@ -24,7 +24,7 @@ import {
 
 const LandingPage = () => {
   return (
-    <main className="flex flex-col gap-10 sm:gap-18 py-10">
+    <main className="flex flex-col gap-10 sm:gap-20 py-10">
       <section className="text-center">
         <h1 className="flex flex-col items-center justify-center gradient-title font-extrabold text-4xl sm:text-6xl lg:text-8xl tracking-tighter py-4">
           Find Your Dream Job{" "}

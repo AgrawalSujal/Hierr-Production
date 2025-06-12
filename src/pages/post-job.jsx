@@ -88,7 +88,7 @@ const PostJob = () => {
   }
 
   return (
-    <div>
+    <div className="flex flex-col pb-10">
       <h1 className="gradient-title font-extrabold text-5xl sm:text-7xl text-center pb-8">
         Post a Job
       </h1>
