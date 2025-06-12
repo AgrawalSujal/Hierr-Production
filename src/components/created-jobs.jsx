@@ -1,4 +1,4 @@
-import { getMyJobs } from "@/api/apiJobs";
+import { getMyJobs } from "@/api/apijobs";
 import useFetch from "@/hooks/use-fetch";
 import { useUser } from "@clerk/clerk-react";
 import { BarLoader } from "react-spinners";
