@@ -60,25 +60,26 @@
 
 // export default Onboarding;
 
+// v2
 import { useUser } from "@clerk/clerk-react";
-import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { BarLoader } from "react-spinners";
+import { Button } from "@/components/ui/button";
 
 const Onboarding = () => {
   const { user, isLoaded, isSignedIn } = useUser();
   const navigate = useNavigate();
 
-  const navigateUser = (currRole) => {
-    navigate(currRole === "recruiter" ? "/post-job" : "/jobs");
+  const navigateUser = (role) => {
+    if (role === "recruiter") navigate("/post-job");
+    else if (role === "candidate") navigate("/jobs");
   };
 
   const handleRoleSelection = async (role) => {
     if (!user) return;
     try {
       await user.update({ unsafeMetadata: { role } });
-      console.log(`Role updated to: ${role}`);
       navigateUser(role);
     } catch (err) {
       console.error("Error updating role:", err);
@@ -86,17 +87,12 @@ const Onboarding = () => {
   };
 
   useEffect(() => {
-    if (isLoaded && !isSignedIn) {
-      navigate("/?sign-in=true");
-    }
-
-    if (isLoaded && user?.unsafeMetadata?.role) {
+    if (isLoaded && isSignedIn && user?.unsafeMetadata?.role) {
       navigateUser(user.unsafeMetadata.role);
     }
   }, [user, isLoaded, isSignedIn]);
 
   if (!isLoaded) {
-    console.log("user not loaded ...");
     return <BarLoader className="mb-4" width={"100%"} color="#36d7b7" />;
   }
 
