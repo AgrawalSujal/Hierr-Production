@@ -12,11 +12,11 @@ A modern media and video production showcase platform built with **React**, **Vi
 
 ### 🎥 Home
 
-![Home Page](./screenshots/Home2.png)
+![Home Page](./screenshots/Home-2.png)
 
 ### 🎥 Home
 
-![Home Page](./screenshots/Home3.png)
+![Home Page](./screenshots/Home-3.png)
 
 ### 📹 JOb Page (Job Seeker)
 
@@ -120,6 +120,8 @@ Hierr-Production/
 - Push (git push origin feature/my-feature)
 - Create a Pull Request
 
-👨‍💻 Author
-Sujal Agrawal
-🚀 Passionate full-stack developer crafting modern web apps with React, Node.js, and clean UX design.
+## 👨‍💻 Sujal Agrawal
+
+🚀 Passionate full-stack developer crafting modern web apps using **React**, **Node.js**, and delivering clean, responsive user experiences.
+
+🔗 [GitHub](https://github.com/AgrawalSujal) • [LinkedIn](https://linkedin.com/in/sujal-agrawal)
